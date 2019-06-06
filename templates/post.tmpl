@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang=en>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Kim Jong-un {{.Caption}}</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin=anonymous>
+<link rel=stylesheet href={{assetPath "/post.css"}}>
+<style nonce="{{.CSPNonce}}">body{background-image:url("{{.Image}}")}</style>
+<header>
+<p><a href="/{{.PostID}}">Kim Jong-un {{.Caption}}</a></p>
+</header>
+<footer>
+<p><a href=/ title="new image">{{if .IsIndex}}↻{{else}}↑{{end}}</a>&nbsp;&nbsp;made by <a href=https://tomthorogood.uk rel=author>Tom Thorogood</a> with images from <a href="{{.SourceURL}}">{{.SourceTitle}}</a></p>
+</footer>
