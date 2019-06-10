@@ -24,6 +24,8 @@ github.com/tumblr/tumblr.go v1.0.0 h1:QGCByhaLNXAMFq5Rjq0tVZ3Oe3wlbuUkprOOI8mtYj
 github.com/tumblr/tumblr.go v1.0.0/go.mod h1:huMTrAf1GFQP1K/xC72b8H6AaQCFwIjc7yB+AJ2CucY=
 github.com/tumblr/tumblrclient.go v1.0.0 h1:hK8N2wgYTGmL2rEoFqLQ56b7B8ke3M7FAZWATc5nr40=
 github.com/tumblr/tumblrclient.go v1.0.0/go.mod h1:xwY/qidXhkjJyPNE95q2EpblpajD+Lfsn1EQFCiQexM=
+go.tmthrgd.dev/refresh v0.0.0-20190610060410-93459bf29519 h1:LbMNHQSxZWfOT3sQ9Xeb2OS0JnxVhj6Aa9z3A7RoQPQ=
+go.tmthrgd.dev/refresh v0.0.0-20190610060410-93459bf29519/go.mod h1:d7HH9s9B2rvBXu5lHO0Oq/6aj47ZvOK655SF/74FAJk=
 go.tmthrgd.dev/vfshash v0.0.0-20190531093011-cc3700bd94ce h1:X8fLx8Fuzl8r7CUL9fjCjRHPZ65JTqRzCA87Crk6nS8=
 go.tmthrgd.dev/vfshash v0.0.0-20190531093011-cc3700bd94ce/go.mod h1:ZhrJ9ef/OeHMnHlhCUfM6Bpp7MFFnk6+eNVNaRZrhAs=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

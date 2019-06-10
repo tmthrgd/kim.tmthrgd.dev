@@ -12,5 +12,6 @@ require (
 	github.com/tmthrgd/httputils v0.0.0-20190303111359-ec3de85dbccd // indirect
 	github.com/tumblr/tumblr.go v1.0.0
 	github.com/tumblr/tumblrclient.go v1.0.0
+	go.tmthrgd.dev/refresh v0.0.0-20190610060410-93459bf29519
 	go.tmthrgd.dev/vfshash v0.0.0-20190531093011-cc3700bd94ce
 )

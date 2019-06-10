@@ -11,11 +11,12 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"sync"
+	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/tumblr/tumblr.go"
 	"github.com/tumblr/tumblrclient.go"
+	"go.tmthrgd.dev/refresh"
 )
 
 var postTmpl = newTemplate("post.tmpl")
@@ -66,12 +67,15 @@ func postHandler() http.HandlerFunc {
 	blog := tumblrclient.NewClient(os.Getenv("CONSUMER_KEY"), os.Getenv("CONSUMER_SECRET")).
 		GetBlog("kimjongunlookingatthings.tumblr.com")
 
-	var (
-		once     sync.Once
+	type result struct {
 		blogInfo *tumblr.Blog
 		posts    []tumblr.PostInterface
-		postsErr error
-	)
+	}
+	posts := refresh.New(time.Hour, func() (interface{}, error) {
+		blogInfo, posts, err := fetchPosts(blog)
+		posts = filterPosts(posts)
+		return result{blogInfo, posts}, err
+	})
 	return errorHandler(func(w http.ResponseWriter, r *http.Request) error {
 		postID := chi.URLParam(r, "postID")
 		postID64, err := strconv.ParseUint(postID, 10, 64)
@@ -79,12 +83,10 @@ func postHandler() http.HandlerFunc {
 			return os.ErrNotExist
 		}
 
-		once.Do(func() {
-			blogInfo, posts, postsErr = fetchPosts(blog)
-			posts = filterPosts(posts)
-		})
-		if postsErr != nil {
-			return postsErr
+		v, err := posts.Load()
+		blogInfo, posts := v.(result).blogInfo, v.(result).posts
+		if err != nil {
+			return err
 		} else if len(posts) == 0 {
 			return os.ErrNotExist
 		}
