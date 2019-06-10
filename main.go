@@ -41,7 +41,9 @@ func main() {
 		rr := r.With(
 			handlers.SetHeaderWrap("Cache-Control", "public, max-age=1209600"), // 14 days
 		)
-		rr.Get("/favicon.ico", assetNamesH)
+		rr.With(
+			handlers.SetHeaderWrap("Content-Type", "image/png"),
+		).Get("/favicon.ico", assetNamesH)
 		rr.Get("/robots.txt", assetNamesH)
 
 		r.With(
