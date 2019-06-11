@@ -76,6 +76,8 @@ func postHandler() http.HandlerFunc {
 		posts = filterPosts(posts)
 		return result{blogInfo, posts}, err
 	})
+	posts.SetStaleWhileRefresh(true)
+
 	return errorHandler(func(w http.ResponseWriter, r *http.Request) error {
 		postID := chi.URLParam(r, "postID")
 		postID64, err := strconv.ParseUint(postID, 10, 64)
