@@ -43,7 +43,7 @@ func fetchPosts(blog *tumblr.BlogRef) (*tumblr.Blog, []tumblr.PostInterface, err
 		}
 		posts = append(posts, postsAll...)
 
-		if len(postsResp.Posts) <= 20 {
+		if len(postsResp.Posts) < 20 {
 			break
 		}
 
