@@ -12,7 +12,7 @@ serve:
 
 docker-serve:
 	docker build -t kim-tmthrgd-dev-server -f Dockerfile .
-	docker run -e GITHUB_TOKEN -p 8090:8090 -e PORT=8090 -d kim-tmthrgd-dev-server
+	docker run -e CONSUMER_KEY -e CONSUMER_SECRET -p 8090:8090 -e PORT=8090 -d kim-tmthrgd-dev-server
 
 docker-stop:
 	docker stop $(shell docker ps -f ancestor=kim-tmthrgd-dev-server --format "{{.ID}}")
