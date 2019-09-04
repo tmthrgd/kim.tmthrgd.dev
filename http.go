@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html"
 	"html/template"
@@ -82,20 +83,19 @@ func errorHandler(handler func(http.ResponseWriter, *http.Request) error) http.H
 		hdr := w.Header()
 		statusCode := http.StatusInternalServerError
 		errorMsg := html.EscapeString(err.Error())
-		switch err := err.(type) {
-		case methodNotAllowedError:
-			hdr.Set("Allow", string(err))
+		var methodErr methodNotAllowedError
+		switch {
+		case errors.As(err, new(*tumblrAPIError)):
+			statusCode = http.StatusBadGateway
+		case errors.Is(err, os.ErrNotExist):
+			statusCode = http.StatusNotFound
+			errorMsg = "The requested file was not found."
+		case errors.As(err, &methodErr):
+			hdr.Set("Allow", string(methodErr))
 
 			statusCode = http.StatusMethodNotAllowed
 			errorMsg = fmt.Sprintf("The request method <code>%s</code> is inappropriate for the URL <code>%s</code>.",
 				html.EscapeString(r.Method), html.EscapeString(r.URL.Path))
-		case *tumblrAPIError:
-			statusCode = http.StatusBadGateway
-		default:
-			if os.IsNotExist(err) {
-				statusCode = http.StatusNotFound
-				errorMsg = "The requested file was not found."
-			}
 		}
 
 		hdr.Set("Content-Type", "text/html; charset=utf-8")
@@ -155,6 +155,8 @@ func (methodNotAllowedError) Error() string {
 }
 
 type tumblrAPIError struct{ error }
+
+func (te *tumblrAPIError) Unwrap() error { return te.error }
 
 func (te *tumblrAPIError) Error() string {
 	return "upstream HTTP error: " + te.error.Error()
