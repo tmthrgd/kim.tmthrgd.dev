@@ -1,6 +1,6 @@
 module go.tmthrgd.dev/kim.tmthrgd.dev
 
-go 1.12
+go 1.13
 
 require (
 	github.com/dghubble/oauth1 v0.5.0 // indirect
