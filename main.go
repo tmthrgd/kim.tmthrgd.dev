@@ -46,7 +46,7 @@ func main() {
 		).Get("/favicon.ico", assetNamesH)
 		rr.Get("/robots.txt", assetNamesH)
 
-		securityTxtH := http.RedirectHandler("https://tomthorogood.uk/.well-known/security.txt", http.StatusFound).ServeHTTP
+		securityTxtH := http.RedirectHandler("https://tomthorogood.net/.well-known/security.txt", http.StatusFound).ServeHTTP
 		r.Get("/.well-known/security.txt", securityTxtH)
 
 		rr = r.With(
